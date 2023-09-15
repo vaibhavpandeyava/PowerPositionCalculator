@@ -38,6 +38,11 @@ namespace App.WindowsService
 
         }
 
+        /// <summary>
+        /// Aggregate the trade data and prepare the output for the file.
+        /// </summary>
+        /// <param name="sumDictionary"></param>
+        /// <returns></returns>
         public static string PrepareAggregateForExtract(Dictionary<int, PowerData> sumDictionary)
         {
             StringBuilder sb = new ();
@@ -47,6 +52,10 @@ namespace App.WindowsService
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Map hour to period
+        /// </summary>
+        /// <returns></returns>
         private static Dictionary<int, PowerData> MapHourtoPeriod()
         {
             Dictionary<int, PowerData> sumDictionary = new ()
@@ -81,7 +90,12 @@ namespace App.WindowsService
             return sumDictionary;
         }
 
-        //Method to write the file asynchronously
+        /// <summary>
+        /// Writes the file to the disk
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public static bool WriteToFileAsync(string message, DateTime date)
         {
             bool result = false;
@@ -108,7 +122,10 @@ namespace App.WindowsService
             return result;
         }
 
-        //Create application folder if it does not exist
+        /// <summary>
+        /// Create output directory if it does not exist.
+        /// </summary>
+        /// <returns></returns>
         public static bool CreateOutputDirectory()
         {
             DirectoryInfo? info = null;
@@ -121,7 +138,6 @@ namespace App.WindowsService
             return info is not null;
         }
 
-        //Read Application Settings from appsettings.json
         /// <summary>
         /// Fetches the setting and then they value can be used.
         /// </summary>

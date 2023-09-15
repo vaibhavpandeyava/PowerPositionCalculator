@@ -94,17 +94,16 @@ public sealed class WindowsBackgroundService : BackgroundService
 
 
         Dictionary<int, PowerData> aggregate = CommonHelper.AggregateTrade(trades);
+        if(aggregate!=null && aggregate.Count == 0)
+        {
+            _logger.LogInformation("No data found for the hour.");
+            return;
+        }
+
         _logger.LogInformation("Start writing aggregated trade data to output.");
         CommonHelper.WriteToFileAsync(CommonHelper.PrepareAggregateForExtract(aggregate), thishourdatetime);
-        _logger.LogInformation("Finished writing trade data extract.");
-
+        _logger.LogInformation($"Finished writing trade data extract. Next extract will be available in: {_scheduleFrequency} mins.");
 
     }
-
-    
-
-
-
-
 
 }
